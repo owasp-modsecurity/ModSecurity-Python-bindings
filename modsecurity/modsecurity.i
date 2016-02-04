@@ -43,6 +43,8 @@ using std::basic_string;
 %}
 
 %ignore modsecurity::RulesProperties::parserError const;
+%ignore modsecurity::Transaction::m_requestBody;
+%ignore modsecurity::Transaction::m_responseBody;
 
 %include "modsecurity/intervention.h"
 %include "modsecurity/transaction/variable.h"
