@@ -39,36 +39,40 @@ headers_dir = [
     ]
 
 def find_modsec():
-    for i in possible_modsecurity_dirs:
-        lib = None
-        inc = None
-
+    def find_library():
         for j in libraries_dir:
             p = os.path.join(i, j, "libmodsecurity.so")
-            if os.path.isfile(p) or os.path.islink(p):
-                lib = os.path.join(i, j)
+            if os.path.isfile(p):
+                return os.path.join(i, j)
+        return None
 
+    def find_header():
         for x in headers_dir:
             p = os.path.join(i, x, os.path.join("modsecurity", "modsecurity.h"))
-            if os.path.isfile(p) or os.path.islink(p):
-                inc = os.path.join(i, x)
+            if os.path.isfile(p):
+                return os.path.join(i, x)
+        return None
 
-        if inc != None and lib != None:
-            return (inc, lib)
+    inc = lib = None
+    for i in possible_modsecurity_dirs:
+        if not inc:
+            inc = find_header()
+        if not lib:
+            lib = find_library()
 
-    return (None, None)
+    return (inc, lib)
 
 inc_dir, lib_dir = find_modsec()
 
 
-print "*** found modsecurity at:"
-print "    headers: " + str(inc_dir)
-print "    library: " + str(lib_dir)
+print("*** found modsecurity at:")
+print("    headers: " + str(inc_dir))
+print("    library: " + str(lib_dir))
 
 
 if inc_dir == None or lib_dir == None:
-    print "libModSecurity was not found in your system."
-    print "Make sure you have libModSecurity correctly installed in your system."
+    print("libModSecurity was not found in your system.")
+    print("Make sure you have libModSecurity correctly installed in your system.")
     sys.exit(1)
 
 
