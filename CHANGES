@@ -1,0 +1,11 @@
+DD mmm YYYY - To be released
+----------------------------
+
+ * Make it compatible with Python3 and a refactoring at find_modsec.
+   [Julien Voisin]
+ * Update the README and installation documentation.
+   [Chaim Sanders]
+ * The project is workable and published.
+   [Felipe Zimmerle]
+
+
