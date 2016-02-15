@@ -29,7 +29,8 @@ possible_modsecurity_dirs = [
 
 libraries_dir = [
     "lib/",
-    "lib64/"
+    "lib64/",
+    "./"
     ]
 
 headers_dir = [
@@ -38,37 +39,42 @@ headers_dir = [
     "./"
     ]
 
+
 def find_modsec():
-    for i in possible_modsecurity_dirs:
-        lib = None
-        inc = None
+    def find_library(modsec_dir):
+        for i in libraries_dir:
+            path = os.path.join(modsec_dir, i, "libmodsecurity.so")
+            if os.path.isfile(path):
+                return os.path.join(modsec_dir, i)
+        return None
 
-        for j in libraries_dir:
-            p = os.path.join(i, j, "libmodsecurity.so")
-            if os.path.isfile(p) or os.path.islink(p):
-                lib = os.path.join(i, j)
+    def find_header(modsec_dir):
+        for i in headers_dir:
+            path = os.path.join(modsec_dir, i, "modsecurity", "modsecurity.h")
+            if os.path.isfile(path):
+                return os.path.join(modsec_dir, i)
+        return None
 
-        for x in headers_dir:
-            p = os.path.join(i, x, os.path.join("modsecurity", "modsecurity.h"))
-            if os.path.isfile(p) or os.path.islink(p):
-                inc = os.path.join(i, x)
+    inc = lib = None
+    for modsec_dir in possible_modsecurity_dirs:
+        if not inc:
+            inc = find_header(modsec_dir)
+        if not lib:
+            lib = find_library(modsec_dir)
 
-        if inc != None and lib != None:
-            return (inc, lib)
-
-    return (None, None)
+    return (inc, lib)
 
 inc_dir, lib_dir = find_modsec()
 
 
-print "*** found modsecurity at:"
-print "    headers: " + str(inc_dir)
-print "    library: " + str(lib_dir)
+print("*** found modsecurity at:")
+print("    headers: " + str(inc_dir))
+print("    library: " + str(lib_dir))
 
 
 if inc_dir == None or lib_dir == None:
-    print "libModSecurity was not found in your system."
-    print "Make sure you have libModSecurity correctly installed in your system."
+    print("libModSecurity was not found in your system.")
+    print("Make sure you have libModSecurity correctly installed in your system.")
     sys.exit(1)
 
 
