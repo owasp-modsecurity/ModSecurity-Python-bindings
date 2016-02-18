@@ -5,15 +5,15 @@ all:
 test:
 	tests/t.py
 
-install:
+install: all test
 	python setup.py install --prefix=/usr
 
 clean:
-	@rm modsecurity/modsecurity_wrap.cxx
-	@rm -rf build
-	@rm _modsecurity.so
-	@rm modsecurity/modsecurity.py
-	@rm *.pyc tests/*.pyc modsecurity/*.pyc
+	rm -f ./modsecurity/modsecurity_wrap.cxx
+	rm -rf ./build
+	rm -f ./_modsecurity.so
+	rm -f ./modsecurity/modsecurity.py
+	rm -f ./*.pyc ./tests/*.pyc ./modsecurity/*.pyc
 
 
 
