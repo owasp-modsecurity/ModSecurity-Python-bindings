@@ -17,9 +17,11 @@
 
 %module modsecurity
 
-%include "std_string.i"
-%include "std_vector.i"
-%include "std_sstream.i"
+%include <std_string.i>
+%include <std_sstream.i>
+%include <std_vector.i>
+%include <std_map.i>
+%include <std_multimap.i>
 %include "attribute.i"
 %include "carrays.i"
 %include "typemaps.i"
@@ -41,6 +43,18 @@
 
 using std::basic_string;
 %}
+
+%rename(_del) modsecurity::transaction::Variables::del(const std::string& key);
+%rename(_del) modsecurity::transaction::Collections::del(const std::string& key);
+
+%immutable modsecurity::ModSecurityIntervention_t::url;
+%immutable modsecurity::ModSecurityIntervention_t::log;
+
+%immutable modsecurity::Transaction::m_clientIpAddress;
+%immutable modsecurity::Transaction::m_httpVersion;
+%immutable modsecurity::Transaction::m_method;
+%immutable modsecurity::Transaction::m_serverIpAddress;
+%immutable modsecurity::Transaction::m_uri;
 
 %ignore modsecurity::RulesProperties::parserError const;
 %ignore modsecurity::Transaction::m_requestBody;

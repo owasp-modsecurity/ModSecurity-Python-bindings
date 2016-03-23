@@ -92,7 +92,7 @@ extension_mod = Extension(
     library_dirs=[lib_dir],
     runtime_library_dirs=[lib_dir],
     include_dirs=[inc_dir, "."],
-    extra_compile_args=["-std=c++11"]
+    extra_compile_args=["-std=c++11", "-Wno-maybe-uninitialized"]
 )
 
 
