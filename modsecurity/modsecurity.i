@@ -30,10 +30,9 @@
 
 %{
 #include "modsecurity/intervention.h"
-#include "modsecurity/transaction/variable.h"
-#include "modsecurity/transaction/variables.h"
-#include "modsecurity/transaction/collection.h"
-#include "modsecurity/transaction/collections.h"
+#include "modsecurity/collection/variable.h"
+#include "modsecurity/collection/collection.h"
+#include "modsecurity/collection/collections.h"
 #include "modsecurity/transaction.h"
 #include "modsecurity/debug_log.h"
 #include "modsecurity/modsecurity.h"
@@ -44,8 +43,8 @@
 using std::basic_string;
 %}
 
-%rename(_del) modsecurity::transaction::Variables::del(const std::string& key);
-%rename(_del) modsecurity::transaction::Collections::del(const std::string& key);
+%rename(_del) modsecurity::collection::Variables::del(const std::string& key);
+%rename(_del) modsecurity::collection::Collections::del(const std::string& key);
 
 %immutable modsecurity::ModSecurityIntervention_t::url;
 %immutable modsecurity::ModSecurityIntervention_t::log;
@@ -61,10 +60,9 @@ using std::basic_string;
 %ignore modsecurity::Transaction::m_responseBody;
 
 %include "modsecurity/intervention.h"
-%include "modsecurity/transaction/variable.h"
-%include "modsecurity/transaction/variables.h"
-%include "modsecurity/transaction/collection.h"
-%include "modsecurity/transaction/collections.h"
+%include "modsecurity/collection/variable.h"
+%include "modsecurity/collection/collection.h"
+%include "modsecurity/collection/collections.h"
 %include "modsecurity/transaction.h"
 %include "modsecurity/debug_log.h"
 %include "modsecurity/modsecurity.h"
