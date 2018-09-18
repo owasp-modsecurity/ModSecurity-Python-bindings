@@ -1,3 +1,7 @@
+# NOTE
+
+This project was outdated by the **pymodsecurity** project (https://github.com/actions-security/pymodsecurity). At **pymodsecurity** you can get a more stable and feature complete bindings for libmodsecurity.
+
 # Introduction
 
 The following are a set of Swig generated Python bindings for libmodsecurity. These bindings will allow users to utilize the exposed libmodsecurity interfaces directly from python, without the use of ctypes.
